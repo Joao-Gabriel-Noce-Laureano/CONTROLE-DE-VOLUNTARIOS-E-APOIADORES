@@ -41,11 +41,8 @@ O sistema será uma aplicação web desenvolvida com Node.js no back-end e React
 
 [Link para visualização completa](https://docs.google.com/spreadsheets/d/1iHHlraDs6fw7tFqjMHEjOx_QusmKBVUY/edit?gid=308923840#gid=308923840)
 
-![image](https://github.com/user-attachments/assets/23f3e92a-3f70-4296-a74f-25a685aabd3f)
-![image](https://github.com/user-attachments/assets/846466f4-b579-45cb-9d03-6c4a5530aec4)
-![image](https://github.com/user-attachments/assets/0995d28b-dda5-4fcd-a19f-fe36bb91320d)
-![image](https://github.com/user-attachments/assets/1586486e-771a-470c-9012-47aa0d4d8df4)
-![image](https://github.com/user-attachments/assets/b9e553e0-20ca-435f-9120-e0f26d2eb45b)
+![image](https://github.com/user-attachments/assets/3dbcd7e1-8dc7-4397-82f2-e0e5d7b8edb0)
+
 
 ## Atribuições e organização da squad:
 
@@ -62,3 +59,35 @@ O sistema será uma aplicação web desenvolvida com Node.js no back-end e React
 | Banco de Dados                   | Modelagem e integração             | Thomas        |
 | Testes e QA                     | Elaboração de testes e validação   | Antônio       |
 | Documentação                    | Elaboração e atualização           | Leonardo      |
+
+## Visão Macro de User Stories
+
+| User Stories |
+|--------------|
+| Como **Administrador**, quero cadastrar um novo voluntário preenchendo nome completo, RA, e-mail institucional, área de atuação e data de nascimento para registrar sua participação no projeto. |
+| Como **Administrador**, quero que o campo RA aceite apenas valores numéricos com formato validado para garantir a consistência do identificador acadêmico. |
+| Como **Administrador**, quero que o campo e-mail valide apenas endereços institucionais UTFPR para garantir comunicação oficial. |
+| Como **Administrador**, quero selecionar a área de atuação em um dropdown populado com as áreas ativas do projeto para atribuir corretamente o voluntário. |
+| Como **Administrador**, quero editar os dados de um voluntário existente (nome, RA, e-mail, área ou data de nascimento) para manter o cadastro sempre atualizado. |
+| Como **Administrador**, quero remover um voluntário exibindo antes um modal de confirmação para evitar deleções acidentais. |
+| Como **Membro do Projeto**, quero visualizar todos os voluntários em uma tabela com colunas: nome completo, RA, e-mail, área e aniversário para consultar facilmente seus dados. |
+| Como **Membro do Projeto**, quero buscar voluntários por nome ou RA usando a barra de pesquisa para localizar um registro específico rapidamente. |
+| Como **Membro do Projeto**, quero filtrar a lista por área de atuação para analisar a distribuição de voluntários por segmento. |
+| Como **Membro do Projeto**, quero navegar entre páginas via paginação para acessar grandes volumes de registros de forma organizada. |
+| Como **Administrador**, quero cadastrar um novo apoiador selecionando “Aluno” ou “Não Aluno”, informando nome completo, e-mail (e RA se for aluno) e descrição do apoio para registrar suas contribuições. |
+| Como **Administrador**, quero que o formulário exiba dinamicamente o campo RA somente quando “Aluno” estiver selecionado para simplificar a interface. |
+| Como **Administrador**, quero incluir um campo de observações para registrar comentários adicionais sobre o apoiador. |
+| Como **Administrador**, quero editar dados de apoiadores (tipo, nome, e-mail, RA, descrição ou observações) para manter os registros precisos. |
+| Como **Administrador**, quero excluir um apoiador exibindo um modal de confirmação para prevenir remoções não intencionais. |
+| Como **Membro do Projeto**, quero visualizar todos os apoiadores em tabela com colunas: tipo (Aluno/Não Aluno), nome, e-mail, descrição e observações para gerenciar o apoio recebido. |
+| Como **Membro do Projeto**, quero buscar apoiadores por nome ou e-mail para localizar rapidamente um colaborador específico. |
+| Como **Membro do Projeto**, quero navegar por meio de paginação para consultar grandes listas de apoiadores de forma ordenada. |
+| Como **Administrador**, quero ver no dashboard a quantidade total de voluntários para ter um panorama geral da participação. |
+| Como **Administrador**, quero ver no dashboard a quantidade total de apoiadores para monitorar o engajamento de suporte. |
+| Como **Administrador**, quero ver um gráfico de distribuição de voluntários por área para identificar os segmentos com maior ou menor adesão. |
+| Como **Administrador**, quero visualizar as últimas atividades (ex.: “Nova Voluntária: Maria Silva” ou “Novo Apoiador: João Santos”) para acompanhar atualizações em tempo real. |
+| Como **Membro do Projeto**, quero que o dashboard reflita imediatamente alterações após cadastros, edições ou remoções para manter os indicadores sempre atualizados. |
+| Como **Usuário**, quero ver indicadores de carregamento ao buscar ou enviar dados para saber que a aplicação está processando minha ação. |
+| Como **Administrador**, quero receber mensagens de erro claras (e.g., “RA inválido” ou “E-mail obrigatório”) ao inserir dados incorretos para corrigir falhas de validação. |
+| Como **Product Owner**, quero que o front-end seja implementado em React e o back-end em Node.js/Express com banco NoSQL para alinhar-me à arquitetura definida. |
+| Como **Product Owner**, quero versionar todo o código no GitHub para garantir rastreabilidade e colaboração eficiente. |
