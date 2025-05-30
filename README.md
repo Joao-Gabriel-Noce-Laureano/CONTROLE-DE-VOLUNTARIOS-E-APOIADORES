@@ -2,6 +2,8 @@
 
 Este repositório contém os arquivos do projeto de desenvolvimento do sistema de Controle de Voluntários(as)/Apoiadores(as), a ser realizado na disciplina Certificadora de Competência 3 da Universidade Tecnológica Federal do Paraná. O sistema visa apoiar a gestão de voluntários(as) e apoiadores(as) do projeto Meninas Digitais, promovendo organização, transparência e eficiência nas atividades do grupo.
 
+Backlog do produto: [clique aqui](https://docs.google.com/spreadsheets/d/1XeYxOw4cV-FjsqfTIkLJWOauqBYPIjKcrsCtOO7gT5I/edit?gid=0#gid=0).
+
 ## Integrantes e respectivos papéis adotados:
 ### Antonio Marcos Fontes Darienco
 Quality Assurance e Desenvolvedor
