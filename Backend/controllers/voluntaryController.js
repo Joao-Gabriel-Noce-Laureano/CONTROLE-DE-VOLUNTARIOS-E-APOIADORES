@@ -1,4 +1,4 @@
-const Voluntary = require('../models/Voluntary')
+const Voluntary = require('../models/voluntary')
 const mongoose = require('mongoose')
 
 module.exports = class VoluntaryController{

@@ -1,4 +1,4 @@
-const Supporter = require('../models/Supporter')
+const Supporter = require('../models/supporter')
 const mongoose = require('mongoose')
 
 module.exports = class SupporterController{

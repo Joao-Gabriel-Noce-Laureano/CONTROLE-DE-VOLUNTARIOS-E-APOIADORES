@@ -4,6 +4,91 @@ Este repositório contém os arquivos do projeto de desenvolvimento do sistema d
 
 Backlog do produto: [clique aqui](https://docs.google.com/spreadsheets/d/1XeYxOw4cV-FjsqfTIkLJWOauqBYPIjKcrsCtOO7gT5I/edit?gid=0#gid=0).
 
+## Descrição:
+O sistema será uma aplicação web desenvolvida com Node.js no back-end e React (ou similar) no front-end. Seu objetivo é permitir o cadastro, visualização, edição e remoção de voluntários(as) e apoiadores(as), além de apresentar indicadores quantitativos sobre a participação no projeto.  
+
+## Roteiro de Instalação e Execução
+
+### 1. Baixe ou Clone o Projeto
+
+Você pode baixar o projeto diretamente do GitHub (clonando ou baixando o ZIP).  
+Após baixar, descompacte a pasta, se necessário.
+Ou clone o projeto com Git:
+`
+git clone https://github.com/Joao-Gabriel-Noce-Laureano/CONTROLE-DE-VOLUNTARIOS-E-APOIADORES/.git
+cd CONTROLE-DE-VOLUNTARIOS-E-APOIADORES
+`
+
+### 2. Estrutura de Pastas
+
+O projeto possui as seguintes pastas principais:
+
+- `back-end/` — código do servidor (API, banco de dados, etc.)
+- `front-end/` — código do cliente (interface web)
+- `docs/`, `prototypes/`, `README.md` — documentação e protótipos (opcional para execução)
+
+**Atenção:** Você só precisa executar os passos abaixo nas pastas `back-end` e `front-end`.
+
+---
+
+### 3. Instalando Dependências
+
+#### Back-end
+
+1. Abra o terminal na pasta `back-end`:
+    ```
+    cd back-end
+    ```
+2. Instale as dependências:
+    ```
+    npm install
+    ```
+3. Inicie o servidor back-end:
+    ```
+    npm start
+    ```
+
+#### Front-end
+
+1. Em outro terminal, abra a pasta `front-end`:
+    ```
+    cd front-end
+    ```
+2. Instale as dependências:
+    ```
+    npm install
+    ```
+3. Inicie o servidor front-end:
+    ```
+    npm start
+    ```
+
+---
+
+### 4. Acessando o Projeto
+
+- Após iniciar o front-end, seu navegador deve abrir automaticamente.  
+- Caso não abra, acesse manualmente: [http://localhost:3000](http://localhost:3000) (ou a porta informada no terminal).
+
+**Tecnologias e ferramentas utilizadas:**  
+- **Back-end:** Node.js, Express.js, Mongoose, Nodemon e Cors
+- **Front-end:** React (ou similar)
+- **Banco de Dados:** NoSQL
+- **Controle de Versão:** GitHub
+- **Comunicação:** WhatsApp, E-mail institucional e Google Meet
+- **Documentação e Compartilhamento:** Google Drive e Google Documentos
+- **Gerenciamento de Tarefas:** Google Tarefas e Google Documentos
+
+**Funcionalidades principais:**  
+- Cadastro de voluntários(as) e apoiadores(as);  
+- Visualização em lista com filtros e indicadores;  
+- Edição e remoção de registros;  
+- Tela inicial com indicadores de quantidade total de voluntários(as), apoiadores(as) e distribuição por área de atuação.
+
+  **Usuários esperados:**  
+- **Administradores:** Acesso total ao sistema, podendo cadastrar, editar, remover e visualizar registros, além de acessar indicadores.
+- **Membros do Projeto:** Permissão para visualizar registros e indicadores.
+
 ## Integrantes e respectivos papéis adotados:
 ### Antonio Marcos Fontes Darienco
 Quality Assurance e Desenvolvedor
@@ -16,28 +101,6 @@ Product Owner e Product Designer
 
 ### Thomas Hurtado dos Reis
 Desenvolvedor Fullstack
-
-## Descrição:
-O sistema será uma aplicação web desenvolvida com Node.js no back-end e React (ou similar) no front-end. Seu objetivo é permitir o cadastro, visualização, edição e remoção de voluntários(as) e apoiadores(as), além de apresentar indicadores quantitativos sobre a participação no projeto.  
-
-**Funcionalidades principais:**  
-- Cadastro de voluntários(as) e apoiadores(as);  
-- Visualização em lista com filtros e indicadores;  
-- Edição e remoção de registros;  
-- Tela inicial com indicadores de quantidade total de voluntários(as), apoiadores(as) e distribuição por área de atuação.
-
-  **Usuários esperados:**  
-- **Administradores:** Acesso total ao sistema, podendo cadastrar, editar, remover e visualizar registros, além de acessar indicadores.
-- **Membros do Projeto:** Permissão para visualizar registros e indicadores.
-
-**Tecnologias e ferramentas utilizadas:**  
-- **Back-end:** Node.js, Express.js
-- **Front-end:** React (ou similar)
-- **Banco de Dados:** NoSQL
-- **Controle de Versão:** GitHub
-- **Comunicação:** WhatsApp, E-mail institucional e Google Meet
-- **Documentação e Compartilhamento:** Google Drive e Google Documentos
-- **Gerenciamento de Tarefas:** Google Tarefas e Google Documentos
 
 ## Cronograma do Projeto: Roadmap e Gráfico de Gantt
 
