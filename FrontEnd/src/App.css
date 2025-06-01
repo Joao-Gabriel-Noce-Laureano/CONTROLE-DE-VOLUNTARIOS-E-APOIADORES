@@ -1,0 +1,129 @@
+/* src/App.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+}
+
+header {
+  background-color: #111827;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  margin-left: 16px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+.dashboard {
+  padding: 32px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.card-grid {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex: 1;
+  min-width: 200px;
+}
+
+.card h2 {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.chart, .activities {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex: 1;
+  min-width: 300px;
+}
+
+.activity {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  object-fit: cover;
+}
+
+.footer {
+  background: #111827;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+}
+
+.footer .social-icons img {
+  width: 24px;
+  height: 24px;
+  margin-left: 12px;
+  filter: brightness(0) invert(1); /* deixa os ícones brancos */
+  cursor: pointer;
+}
+
+
+
+/* App.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 32px;
+}
