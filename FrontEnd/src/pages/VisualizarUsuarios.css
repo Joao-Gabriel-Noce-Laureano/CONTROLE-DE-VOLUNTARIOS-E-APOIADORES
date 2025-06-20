@@ -7,6 +7,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .filtros button {
@@ -15,6 +16,11 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filtros button:hover {
+  background-color: #ddd;
 }
 
 .filtros button.ativo {
@@ -23,10 +29,11 @@
 }
 
 .filtros input {
-  flex: 1;
   padding: 6px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  flex: 1;
+  min-width: 200px;
 }
 
 table {
@@ -35,7 +42,8 @@ table {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 th, td {
@@ -46,4 +54,109 @@ th, td {
 
 th {
   background-color: #f9fafb;
+  font-weight: bold;
 }
+
+td:last-child {
+  text-align: center;
+}
+
+td .acoes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.paginacao button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f3e9e;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.paginacao button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.paginacao span {
+  font-weight: bold;
+  color: #2f3e9e;
+}
+
+.topo-tabela {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.topo-tabela h2 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.botao-cadastrar {
+  background-color: #2f3e9e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.botao-cadastrar:hover {
+  background-color: #1f2d7a;
+}
+
+.acoes button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.acoes button:hover {
+  transform: scale(1.2);
+}
+
+.botao-editar {
+  color: #2f3e9e;
+}
+
+.botao-excluir {
+  color: #d11a2a;
+}
+select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+td.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+th:last-child {
+  text-align: center;
+}
+
