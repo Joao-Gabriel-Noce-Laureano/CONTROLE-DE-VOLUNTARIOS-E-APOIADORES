@@ -32,8 +32,8 @@ function App() {
             <Route path="/apoiadores" element={<VisualizarUsuarios tipo="apoiadores" />} />
             <Route path="/cadastro-voluntario" element={<CadastroVoluntario />} />
             <Route path="/cadastro-apoiador" element={<CadastroApoiador />} />
-            <Route path="/editar-voluntario" element={<EditarVoluntario />} />
-            <Route path="/editar-apoiador" element={<EditarApoiador />} />
+            <Route path="/editar-voluntario/:userId" element={<EditarVoluntario />} />
+            <Route path="/editar-apoiador/:userId" element={<EditarApoiador />} />
           </Routes>
         </main>
 

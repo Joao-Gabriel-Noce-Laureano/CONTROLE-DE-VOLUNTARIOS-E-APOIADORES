@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 import './Cadastro.css';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../components/Toast';
+import api from '../api';
 
 function CadastroVoluntario() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    nome: '',
+    name: '',
     ra: '',
-    nascimento: '',
+    birthday: '',
     email: '',
     area: '',
-    descricao: '',
   });
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ function CadastroVoluntario() {
 
   const [toastVisivel, setToastVisivel] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@alunos\.utfpr\.edu\.br$/;
@@ -29,6 +29,16 @@ function CadastroVoluntario() {
         alert("Use um e-mail institucional da UTFPR (ex: nome@alunos.utfpr.edu.br)");
         return;
     }
+
+    try {
+    
+          const data = await api.post('/voluntary/register', form)
+                        .then((response) =>{
+                          return response.data
+                        })
+        } catch (error) {
+          console.log(error)
+        }
 
     console.log('Voluntário cadastrado:', form);
     setToastVisivel(true);
@@ -44,14 +54,13 @@ function CadastroVoluntario() {
       <h2>Cadastro de Voluntários</h2>
       <form onSubmit={handleSubmit}>
         <label>Nome Completo</label>
-        <input name="nome" value={form.nome} onChange={handleChange} required />
+        <input name="name" value={form.name} onChange={handleChange} required />
 
         <div className="duas-colunas">
           <div>
             <label>RA</label>
             <input
                 name="ra"
-                value={form.ra}
                 onChange={handleChange}
                 required
                 type="text"
@@ -63,9 +72,9 @@ function CadastroVoluntario() {
           <div>
             <label>Data de Nascimento</label>
             <input
-              name="nascimento"
+              name="birthday"
               type="date"
-              value={form.nascimento}
+              value={form.birthday}
               onChange={handleChange}
               required
             />

@@ -3,26 +3,33 @@ import React, { useState, useEffect } from 'react';
 import './Cadastro.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../components/Toast';
+import { useParams } from 'react-router-dom'
+import api from '../api';
 
 function EditarApoiador() {
   const navigate = useNavigate();
   const location = useLocation();
+  let { userId } = useParams()
 
   const [form, setForm] = useState({
-    tipo: 'Aluno',
-    nome: '',
+    type: 'Aluno',
+    name: '',
     email: '',
     ra: '',
-    descricao: '',
-    observacoes: '',
+    description: '',
+    observation: '',
   });
 
   useEffect(() => {
-    if (location.state?.pessoa) {
-      const { tipo = 'Aluno', nome, email, ra = '', descricao = '', observacoes = '' } = location.state.pessoa;
-      setForm({ tipo, nome, email, ra, descricao, observacoes });
-    }
-  }, [location]);
+    api.get(`supporter/getuser/${userId}`)
+          .then((response) => {
+            setForm(response.data.supporter);
+            console.log(response.data.supporter);
+          })
+          .catch((error) => {
+            console.error('Erro ao buscar voluntários:', error);
+          });
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -30,7 +37,7 @@ function EditarApoiador() {
 
   const [toastVisivel, setToastVisivel] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@alunos\.utfpr\.edu\.br$/;
@@ -38,6 +45,11 @@ function EditarApoiador() {
       alert("Use um e-mail institucional da UTFPR (ex: nome@alunos.utfpr.edu.br)");
       return;
     }
+
+    const data = await api.patch(`supporter/edit/${userId}`, form
+            ).then((response) =>{
+            return response.data
+            })
 
     console.log('Apoiador editado:', form);
     setToastVisivel(true);
@@ -55,39 +67,39 @@ function EditarApoiador() {
         <label>Tipo de Apoiador</label>
         <div className="radio-group">
           <label>
-            <input type="radio" name="tipo" value="Aluno" checked={form.tipo === 'Aluno'} onChange={handleChange} />
+            <input type="radio" name="type" value="Aluno" checked={form.type === 'Aluno'} onChange={handleChange} />
             Aluno
           </label>
           <label>
-            <input type="radio" name="tipo" value="Não Aluno" checked={form.tipo === 'Não Aluno'} onChange={handleChange} />
+            <input type="radio" name="type" value="Não Aluno" checked={form.type === 'Não Aluno'} onChange={handleChange} />
             Não Aluno
           </label>
         </div>
 
         <label>Nome Completo *</label>
-        <input name="nome" value={form.nome} onChange={handleChange} required />
+        <input name="name" value={form.name || ''} onChange={handleChange} required />
 
         <label>E-mail *</label>
-        <input name="email" value={form.email} onChange={handleChange} required />
+        <input name="email" value={form.email || ''} onChange={handleChange} required />
 
         <label>RA (apenas para alunos)</label>
         <input
           name="ra"
-          value={form.ra}
+          value={form.ra || ''}
           onChange={handleChange}
           type="text"
           inputMode="numeric"
           pattern="[0-9]*"
           title="Digite apenas números"
-          disabled={form.tipo === 'Não Aluno'}
-          placeholder={form.tipo === 'Não Aluno' ? 'Não se aplica' : ''}
+          disabled={form.type === 'Não Aluno'}
+          placeholder={form.type === 'Não Aluno' ? 'Não se aplica' : ''}
         />
 
         <label>Descrição do Apoio *</label>
-        <textarea name="descricao" value={form.descricao} onChange={handleChange} required />
+        <textarea name="description" value={form.description || ''} onChange={handleChange} required />
 
         <label>Observações</label>
-        <textarea name="observacoes" value={form.observacoes} onChange={handleChange} />
+        <textarea name="observation" value={form.observation || ''} onChange={handleChange} />
 
         <div className="botoes">
           <button type="submit" className="principal">Salvar Alterações</button>

@@ -5,13 +5,7 @@ import { useState, useEffect } from 'react';
 import api from '../api';
 
 
-// Dados do gráfico de pizza
-const data = [
-  { name: 'Desenvolvimento Web', value: 20 },
-  { name: 'UX/UI', value: 12 },
-  { name: 'Robótica', value: 8 },
-  { name: 'IA', value: 5 },
-];
+
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f7f'];
 
@@ -19,6 +13,9 @@ function Dashboard() {
 
   const [voluntary, setVoluntary] = useState()
   const [supporter, setSupporter] = useState()
+  const [dados, setDados] = useState([]);
+  const [cadastro, setCadastro] = useState([]);
+
 
   useEffect(() => {
   api.get('voluntary/allnunb')
@@ -29,18 +26,43 @@ function Dashboard() {
     .catch((error) => {
       console.error('Erro ao buscar voluntários:', error);
     });
-}, []);
+  }, []);
 
     useEffect(() => {
   api.get('supporter/allnunb')
     .then((response) => {
-      setVoluntary(response.data.total);
+      setSupporter(response.data.total);
       console.log(response.data.total);
     })
     .catch((error) => {
       console.error('Erro ao buscar voluntários:', error);
     });
 }, []);
+
+  useEffect(() => {
+  api.get('/user/dist')
+    .then(res => {
+      console.log('dados:', res);
+      setDados(res.data);
+    })
+    .catch(err => console.error(err));
+}, []);
+
+useEffect(() => {
+  api.get('/user/cadastro')
+    .then(res => {
+      setCadastro(res.data);
+      console.log('Últimos cadastrados:', res.data);
+    })
+    .catch(err => {
+      console.error('Erro ao buscar últimos cadastrados:', err);
+    });
+}, []);
+
+  const data = dados.map(d => ({
+  name: d.area,
+  value: d.total
+  }));
 
   return (
     <>
@@ -54,7 +76,7 @@ function Dashboard() {
           </div>
           <div className="card">
             <h2>Total de Apoiadores</h2>
-            <p>{supporter} a </p>
+            <p>{supporter}</p>
           </div>
           <div className="card">
             <h2>Áreas Ativas</h2>
@@ -75,6 +97,7 @@ function Dashboard() {
                     outerRadius={60}
                     fill="#8884d8"
                     dataKey="value"
+                    nameKey="name"
                     label
                   >
                     {data.map((entry, index) => (
@@ -107,14 +130,15 @@ function Dashboard() {
 
           <div className="activities">
             <h2>Atividades Recentes</h2>
-
-            <div className="activity">
+            {cadastro.map((usuario, index) => (
+            <div key={index} className="activity">
               <img src="/avatar1.png" alt="Avatar" className="avatar" />
               <div>
-                <p><strong>Nova Voluntária: Maria Silva</strong></p>
-                <p>Desenvolvimento Web</p>
+                <p><strong>Novo {usuario.tipo}: {usuario.name}</strong></p>
+                <p>{usuario.area || usuario.type}</p>
               </div>
             </div>
+            ))}
           </div>
         </div>
       </main>

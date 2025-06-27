@@ -12,13 +12,9 @@ const Voluntary = mongoose.model(
             type: String,
             required: true
         },
-        RA: {
+        ra: {
             type: String,
             required: false
-        },
-        description: {
-            type: String,
-            required: true
         },
         birthday: {
             type: String,

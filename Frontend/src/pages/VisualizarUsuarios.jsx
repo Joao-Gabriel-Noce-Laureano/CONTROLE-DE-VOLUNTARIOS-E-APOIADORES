@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './VisualizarUsuarios.css';
+import api from '../api';
+import { Link } from "react-router-dom"
 
 function VisualizarUsuarios({ tipo }) {
   const [tipoTabela, setTipoTabela] = useState(tipo || 'voluntarios');
@@ -8,6 +10,9 @@ function VisualizarUsuarios({ tipo }) {
   const [filtroArea, setFiltroArea] = useState('');
   const [paginaAtual, setPaginaAtual] = useState(1);
   const itensPorPagina = 5;
+  const [voluntarios, setVoluntarios] = useState([])
+  const [apoiadores, setApoiadores] = useState([])
+  const [att, setAtt] = useState(false)
 
   const navigate = useNavigate();
 
@@ -16,6 +21,29 @@ function VisualizarUsuarios({ tipo }) {
     setFiltro('');
     setPaginaAtual(1); // reinicia a página ao trocar tipo
   }, [tipo]);
+
+  useEffect(() => {
+    api.get('voluntary/all')
+      .then((response) => {
+        setVoluntarios(response.data.Voluntary);
+        console.log(response.data.Voluntary);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar voluntários:', error);
+      });
+  }, [att]);
+
+  useEffect(() => {
+    api.get('supporter/all')
+      .then((response) => {
+        setApoiadores(response.data.supporter);
+        console.log(response.data.supporter);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar voluntários:', error);
+      });
+  }, [att]);
+  
 
   const mudarTipoTabela = (novoTipo) => {
     if (tipoTabela !== novoTipo) {
@@ -29,68 +57,36 @@ function VisualizarUsuarios({ tipo }) {
     navigate(rota, { state: { pessoa } }); 
   };
 
-  const handleExcluir = (pessoa) => {
-    const confirmacao = window.confirm(`Tem certeza que deseja excluir ${pessoa.nome}?`);
+  const handleExcluirS = async (pessoa) => {
+    const confirmacao = window.confirm(`Tem certeza que deseja excluir ${pessoa.name}?`);
     if (confirmacao) {
-      alert(`${pessoa.nome} excluído com sucesso!`);
+      const data = await api.delete(`supporter/delete/${pessoa._id}`)
+                          .then((response) => {
+                            return response.data
+                          })
+      alert(`${pessoa.name} excluído com sucesso!`);
+      setAtt(prev => !prev)
     }
   };
 
-  const voluntarios = [
-    { nome: 'Ana Silva', ra: '2025001', email: 'ana.silva@alunos.utfpr.edu.br', area: 'Desenvolvimento', aniversario: '15/03/2001' },
-    { nome: 'Beatriz Santos', ra: '2025002', email: 'beatriz.santos@alunos.utfpr.edu.br', area: 'Design', aniversario: '22/07/2000' },
-    { nome: 'Carlos Souza', ra: '2025004', email: 'carlos.souza@alunos.utfpr.edu.br', area: 'Marketing', aniversario: '10/01/2002' },
-    { nome: 'Débora Martins', ra: '2025005', email: 'debora.martins@alunos.utfpr.edu.br', area: 'Eventos', aniversario: '02/04/2000' },
-    { nome: 'Eduarda Lopes', ra: '2025006', email: 'eduarda.lopes@alunos.utfpr.edu.br', area: 'Conteúdo', aniversario: '09/08/2001' },
-    { nome: 'Fernanda Oliveira', ra: '2025007', email: 'fernanda.oliveira@alunos.utfpr.edu.br', area: 'Design', aniversario: '17/09/2000' },
-  ];
+  const handleExcluirV = async (pessoa) => {
+    const confirmacao = window.confirm(`Tem certeza que deseja excluir ${pessoa.name}?`);
+    if (confirmacao) {
+      const data = await api.delete(`voluntary/delete/${pessoa._id}`)
+                          .then((response) => {
+                            return response.data
+                          })
+      alert(`${pessoa.name} excluído com sucesso!`);
+      setAtt(prev => !prev)
+    }
+  };
 
-  const apoiadores = [
-    {
-      tipo: 'Aluno',
-      nome: 'Carlos Lima',
-      email: 'carlos.lima@alunos.utfpr.edu.br',
-      ra: '2025003',
-      descricao: 'Ajuda em eventos',
-      observacoes: 'Disponível aos finais de semana'
-    },
-    {
-      tipo: 'Não Aluno',
-      nome: 'Juliana Rocha',
-      email: 'juliana.rocha@gmail.com',
-      descricao: 'Doação de materiais',
-      observacoes: 'Contato via WhatsApp'
-    },
-    {
-      tipo: 'Aluno',
-      nome: 'Luan Pereira',
-      email: 'luan.pereira@alunos.utfpr.edu.br',
-      ra: '2025008',
-      descricao: 'Mentoria em programação',
-      observacoes: 'Prefere horário noturno'
-    },
-    {
-      tipo: 'Não Aluno',
-      nome: 'Mariana Alves',
-      email: 'mariana.alves@gmail.com',
-      descricao: 'Organização de eventos',
-      observacoes: 'Contato via e-mail'
-    },
-    {
-      tipo: 'Aluno',
-      nome: 'Renato Silva',
-      email: 'renato.silva@alunos.utfpr.edu.br',
-      ra: '2025009',
-      descricao: 'Apoio financeiro',
-      observacoes: 'Mensal'
-    },
-  ];
 
   // Aplica filtro por nome ou email
   const listaOriginal = tipoTabela === 'voluntarios' ? voluntarios : apoiadores;
 
   const dadosFiltrados = listaOriginal.filter((pessoa) => {
-    const texto = `${pessoa.nome} ${pessoa.email}`.toLowerCase();
+    const texto = `${pessoa.name} ${pessoa.email}`.toLowerCase();
     const correspondeTexto = texto.includes(filtro.toLowerCase());
     const correspondeArea =
       tipoTabela === 'voluntarios'
@@ -199,29 +195,29 @@ function VisualizarUsuarios({ tipo }) {
         <tbody>
           {dadosPaginados.map((p, i) =>
             tipoTabela === 'voluntarios' ? (
-              <tr key={i}>
-                <td>{p.nome}</td>
+              <tr key={p._id}>
+                <td>{p.name}</td>
                 <td>{p.ra}</td>
                 <td>{p.email}</td>
                 <td>{p.area}</td>
-                <td>{p.aniversario}</td>
+                <td>{p.birthday}</td>
                 <td className="acoes">
-                  <button className="botao-editar" onClick={() => handleEditar(p)}>✏️</button>
-                  <button className="botao-excluir" onClick={() => handleExcluir(p)}>🗑️</button>
+                  <button className="botao-excluir" onClick={() => handleExcluirV(p)}>🗑️</button>
+                  <Link className="botao-editar" to={`/editar-voluntario/${p._id}`}>✏️</Link>
                 </td>
 
               </tr>
             ) : (
-              <tr key={i}>
-                <td>{p.tipo}</td>
-                <td>{p.nome}</td>
+              <tr key={p._id}>
+                <td>{p.type}</td>
+                <td>{p.name}</td>
                 <td>{p.email}</td>
-                <td>{p.tipo === 'Aluno' ? p.ra : '—'}</td>
-                <td>{p.descricao || '—'}</td>
-                <td>{p.observacoes || '—'}</td>
+                <td>{p.type === 'Aluno' ? p.ra : '—'}</td>
+                <td>{p.description || '—'}</td>
+                <td>{p.observation || '—'}</td>
                 <td className="acoes">
-                  <button className="botao-editar" onClick={() => handleEditar(p)}>✏️</button>
-                  <button className="botao-excluir" onClick={() => handleExcluir(p)}>🗑️</button>
+                  <Link className="botao-editar" to={`/editar-apoiador/${p._id}`}>✏️</Link>
+                  <button className="botao-excluir" onClick={() => handleExcluirS(p)}>🗑️</button>
                 </td>
               </tr>
             )

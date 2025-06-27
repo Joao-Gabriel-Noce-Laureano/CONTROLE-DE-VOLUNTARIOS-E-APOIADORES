@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Cadastro.css';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../components/Toast';
-
+import api from '../api';
 
 
 function CadastroApoiador() {
@@ -21,17 +21,27 @@ function CadastroApoiador() {
     setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const [toastVisivel, setToastVisivel] = useState(false);
+  const [toastVisivel, setToastVisivel] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@alunos\.utfpr\.edu\.br$/;
-    if (!emailRegex.test(form.email)) {
-        alert("Use um e-mail institucional da UTFPR (ex: nome@alunos.utfpr.edu.br)");
-        return;
-    }
 
+    if (!emailRegex.test(form.email)) {
+      alert("Use um e-mail institucional da UTFPR (ex: nome@alunos.utfpr.edu.br)");
+      return;
+    }
+    
+    try {
+
+      const data = await api.post('/supporter/register', form)
+                    .then((response) =>{
+                      return response.data
+                    })
+    } catch (error) {
+      console.log(error)
+    }
     console.log('Apoiador cadastrado:', form);
     setToastVisivel(true);
     setTimeout(() => {
@@ -51,25 +61,24 @@ function CadastroApoiador() {
         <div className="radio-group">
           <label>
             
-            <input type="radio" name="tipo" value="Aluno" checked={form.tipo === 'Aluno'} onChange={handleChange} />
+            <input type="radio" name="type" value="Aluno" checked={form.type === 'Aluno'} onChange={handleChange} />
             Aluno
           </label>
           <label>
-            <input type="radio" name="tipo" value="Não Aluno" checked={form.tipo === 'Não Aluno'} onChange={handleChange} />
+            <input type="radio" name="type" value="Não Aluno" checked={form.type === 'Não Aluno'} onChange={handleChange} />
             Não Aluno
           </label>
         </div>
 
         <label>Nome Completo *</label>
-        <input name="nome" value={form.nome} onChange={handleChange} required />
+        <input name="name" value={form.name} onChange={handleChange} required />
 
         <label>E-mail *</label>
-        <input name="email" value={form.email} onChange={handleChange} required />
+        <input name="email" onChange={handleChange} required />
 
         <label>RA (apenas para alunos)</label>
         <input
             name="ra"
-            value={form.ra}
             onChange={handleChange}
             required
             type="text"
@@ -80,10 +89,10 @@ function CadastroApoiador() {
 
 
         <label>Descrição do Apoio *</label>
-        <textarea name="descricao" value={form.descricao} onChange={handleChange} required />
+        <textarea name="description" onChange={handleChange} required />
 
         <label>Observações</label>
-        <textarea name="observacoes" value={form.observacoes} onChange={handleChange} />
+        <textarea name="observation" onChange={handleChange} />
 
         <div className="botoes">
           <button type="submit" className="principal">Cadastrar</button>

@@ -13,9 +13,11 @@ app.use(cors())
 //Routes
 const SupporterRoutes = require('./routes/supporterRoutes')
 const VoluntaryRoutes = require('./routes/voluntaryRoutes')
+const UserRoutes = require('./routes/userRoutes')
 
 app.use('/supporter', SupporterRoutes)
 app.use('/voluntary', VoluntaryRoutes)
+app.use('/user', UserRoutes)
 
 mongoose
     .connect('mongodb+srv://thomashurtado:UKPXm45Mzje24yqh@cluster0.klx0htu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')

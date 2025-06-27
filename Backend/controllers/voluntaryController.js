@@ -5,7 +5,7 @@ module.exports = class VoluntaryController{
 
     static async register(req, res){
 
-         const {name, email, ra, description, birthday, area} = req.body
+         const {name, email, ra, birthday, area} = req.body
 
         if(!name){
             res.status(422).json({message: 'O nome é obrigatorio!'})
@@ -19,11 +19,6 @@ module.exports = class VoluntaryController{
 
         if(!birthday){
             res.status(422).json({message: 'O aniversário é obrigatorio!'})
-            return
-        }
-
-        if(!description){
-            res.status(422).json({message: 'A descrição é obrigatorio!'})
             return
         }
 
@@ -44,7 +39,6 @@ module.exports = class VoluntaryController{
             email: email,
             ra: ra,
             birthday: birthday,
-            description: description,
             area: area,
         })
 
@@ -80,19 +74,18 @@ module.exports = class VoluntaryController{
 
         const id = req.params.id
 
-        const {name, email, ra, description, birthday, area} = req.body
+        const {name, email, RA, birthday, area} = req.body
 
         if (!name) return res.status(400).json({ message: 'O campo "name" é obrigatório.' });
         if (!email) return res.status(400).json({ message: 'O campo "email" é obrigatório.' });
-        if (!description) return res.status(400).json({ message: 'O campo "descrição" é obrigatório.' });
-        if (!ra) return res.status(400).json({ message: 'O campo "ra" é obrigatório.' });
+        if (!RA) return res.status(400).json({ message: 'O campo "ra" é obrigatório.' });
         if (!area) return res.status(400).json({ message: 'O campo "area" é obrigatório.' });
         if (!birthday) return res.status(400).json({ message: 'O campo "aniversario" é obrigatório.' });
 
         try {
             const updatedVoluntary = await Voluntary.findByIdAndUpdate(
             id,
-            { name, email, ra, description, birthday, area },
+            { name, email, RA, birthday, area },
             { new: true, runValidators: true }
             );
 
@@ -128,4 +121,17 @@ module.exports = class VoluntaryController{
             res.status(500).json({ message: 'Erro no servidor ao contar os Voluntary.' });
         }
     }
+
+    static async getuser(req, res){
+    
+            const id = req.params.id
+    
+            const voluntary = await Voluntary.findOne({_id: id})
+    
+            if(!voluntary){
+                return res.status(404).json({message: 'Voluntario não encontrado'})
+            }
+    
+            res.status(200).json({voluntary: voluntary,})
+        }
 }

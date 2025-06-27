@@ -59,7 +59,7 @@ module.exports = class SupporterController{
 
         const supporter = await Supporter.findOne({_id: id})
 
-        if(!prosupporterduct){
+        if(!supporter){
             return res.status(404).json({message: 'Apoiador não encontrado'})
         }
 
@@ -121,4 +121,19 @@ module.exports = class SupporterController{
             res.status(500).json({ message: 'Erro no servidor ao contar os Supporters.' });
         }
     }
+
+    static async getuser(req, res){
+
+        const id = req.params.id
+
+        const supporter = await Supporter.findOne({_id: id})
+
+        if(!supporter){
+            return res.status(404).json({message: 'Apoiador não encontrado'})
+        }
+
+        res.status(200).json({supporter: supporter,})
+    }
+    
 }
+

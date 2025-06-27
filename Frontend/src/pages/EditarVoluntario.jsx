@@ -3,36 +3,32 @@ import React, { useState, useEffect } from 'react';
 import './Cadastro.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from '../components/Toast';
+import { useParams } from 'react-router-dom'
+import api from '../api';
 
 function EditarVoluntario() {
   const navigate = useNavigate();
   const location = useLocation();
+  let { userId } = useParams()
 
   const [form, setForm] = useState({
-    nome: '',
+    name: '',
     ra: '',
-    nascimento: '',
+    birthday: '',
     email: '',
     area: '',
   });
 
   useEffect(() => {
-    if (location.state?.pessoa) {
-      const { nome, ra, email, area, aniversario } = location.state.pessoa;
-      setForm({
-        nome,
-        ra,
-        nascimento: aniversario ? formatarDataISO(aniversario) : '',
-        email,
-        area,
-      });
-    }
-  }, [location]);
-
-  const formatarDataISO = (dataBR) => {
-    const [dia, mes, ano] = dataBR.split('/');
-    return `${ano}-${mes}-${dia}`;
-  };
+    api.get(`voluntary/getuser/${userId}`)
+              .then((response) => {
+                setForm(response.data.voluntary);
+                console.log(response.data.voluntary);
+              })
+              .catch((error) => {
+                console.error('Erro ao buscar voluntários:', error);
+              });
+  },[]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -40,7 +36,7 @@ function EditarVoluntario() {
 
   const [toastVisivel, setToastVisivel] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@alunos\.utfpr\.edu\.br$/;
@@ -48,6 +44,11 @@ function EditarVoluntario() {
       alert("Use um e-mail institucional da UTFPR (ex: nome@alunos.utfpr.edu.br)");
       return;
     }
+
+    const data = await api.patch(`voluntary/edit/${userId}`, form
+                ).then((response) =>{
+                return response.data
+                })
 
     console.log('Voluntário editado:', form);
     setToastVisivel(true);
@@ -62,14 +63,14 @@ function EditarVoluntario() {
       <h2>Edição de Voluntário</h2>
       <form onSubmit={handleSubmit}>
         <label>Nome Completo</label>
-        <input name="nome" value={form.nome} onChange={handleChange} required />
+        <input name="name" value={form.name || ''} onChange={handleChange} required />
 
         <div className="duas-colunas">
           <div>
             <label>RA</label>
             <input
               name="ra"
-              value={form.ra}
+              value={form.ra || ''}
               onChange={handleChange}
               required
               type="text"
@@ -81,9 +82,9 @@ function EditarVoluntario() {
           <div>
             <label>Data de Nascimento</label>
             <input
-              name="nascimento"
+              name="birthday"
               type="date"
-              value={form.nascimento}
+              value={form.birthday || ''}
               onChange={handleChange}
               required
             />
@@ -94,7 +95,7 @@ function EditarVoluntario() {
         <input
           name="email"
           type="email"
-          value={form.email}
+          value={form.email || ''}
           onChange={handleChange}
           required
           pattern="^[a-zA-Z0-9._%+-]+@alunos\.utfpr\.edu\.br$"
@@ -102,7 +103,7 @@ function EditarVoluntario() {
         />
 
         <label>Área no Projeto</label>
-        <select name="area" value={form.area} onChange={handleChange} required>
+        <select name="area" value={form.area || ''} onChange={handleChange} required>
           <option value="">Selecione uma área</option>
           <option value="Desenvolvimento">Desenvolvimento</option>
           <option value="Design">Design</option>
