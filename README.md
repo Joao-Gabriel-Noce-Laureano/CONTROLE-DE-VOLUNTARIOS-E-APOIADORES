@@ -23,8 +23,8 @@ cd CONTROLE-DE-VOLUNTARIOS-E-APOIADORES
 
 O projeto possui as seguintes pastas principais:
 
-- `back-end/` — código do servidor (API, banco de dados, etc.)
-- `front-end/` — código do cliente (interface web)
+- `Backend/` — código do servidor (API, banco de dados, etc.)
+- `Frontend/` — código do cliente (interface web)
 - `docs/`, `prototypes/`, `README.md` — documentação e protótipos (opcional para execução)
 
 **Atenção:** Você só precisa executar os passos abaixo nas pastas `back-end` e `front-end`.
@@ -35,9 +35,9 @@ O projeto possui as seguintes pastas principais:
 
 #### Back-end
 
-1. Abra o terminal na pasta `back-end`:
+1. Abra o terminal na pasta `Backend`:
     ```
-    cd back-end
+    cd Backend
     ```
 2. Instale as dependências:
     ```
@@ -50,9 +50,9 @@ O projeto possui as seguintes pastas principais:
 
 #### Front-end
 
-1. Em outro terminal, abra a pasta `front-end`:
+1. Em outro terminal, abra a pasta `Frontend`:
     ```
-    cd front-end
+    cd Frontend
     ```
 2. Instale as dependências:
     ```
