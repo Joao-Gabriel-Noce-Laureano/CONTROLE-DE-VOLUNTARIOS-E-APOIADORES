@@ -27,7 +27,7 @@ O projeto possui as seguintes pastas principais:
 - `Frontend/` — código do cliente (interface web)
 - `docs/`, `prototypes/`, `README.md` — documentação e protótipos (opcional para execução)
 
-**Atenção:** Você só precisa executar os passos abaixo nas pastas `back-end` e `front-end`.
+**Atenção:** Você só precisa executar os passos abaixo nas pastas `Backend` e `Frontend`.
 
 ---
 
